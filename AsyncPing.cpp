@@ -119,21 +119,12 @@ asyncping_result_t AsyncPing::result() {
     if (_lastResult != aprPending)
         return _lastResult;
     
-    // check timeout
     timeval time;
     gettimeofday(&time, NULL);
     uint64_t currentTime = time.tv_sec * 1000000 + time.tv_usec;
-    if (currentTime - _startetAt > _timeout * 1000)
-    {
-        // delete socket
-        close();
-        _finishedAt = _startetAt + _timeout * 1000;
-        return (_lastResult = aprTimeout);
-    }
-    
+
     // check for data
     socklen_t cursor = _cursor; // avoid including sockets.h in header file
-    
     _lastResult = ping_recv(_socket, _seqNo, _buf, sizeof(_buf), cursor);
     //_lastResult = ping_recv_orig(_socket);
     _cursor = cursor;
@@ -141,6 +132,15 @@ asyncping_result_t AsyncPing::result() {
         close();
         _finishedAt = currentTime;
         _seqNo++;
+    } else {
+        // check timeout
+        if (currentTime - _startetAt > _timeout * 1000)
+        {
+            // delete socket
+            close();
+            _finishedAt = _startetAt + _timeout * 1000;
+            _lastResult = aprTimeout;
+        }
     }
     return _lastResult;
 }

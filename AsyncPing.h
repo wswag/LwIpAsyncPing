@@ -30,6 +30,7 @@ class AsyncPing {
     public:
         void begin(uint32_t dstIp, int timeoutMs = 1000, uint8_t pingLen = 32);
         asyncping_result_t result();
+        void reset() { _lastResult = aprNotStarted; }
 
         int lastPingTimeMicros() { return _finishedAt - _startetAt; }
 
