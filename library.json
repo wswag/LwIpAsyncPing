@@ -1,0 +1,25 @@
+{
+  "name": "LwIpAsyncPing",
+  "version": "1.0.0",
+  "description": "forked Ping lib to support async pings",
+  "keywords": "ping, client, arduino, async",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/wswag/LwIpAsyncPing.git"
+  },
+  "authors":
+  [
+    {
+      "name": "Wolfgang Sebastian Wagner",
+      "email": "sewagn@gmail.com",
+      "url": ""
+    }
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/wswag",
+  "dependencies": {
+  },
+  "frameworks": "*",
+  "platforms": "*"
+}
